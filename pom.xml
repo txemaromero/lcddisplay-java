@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.txemaromero</groupId>
+  <artifactId>lcddisplay</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+    <slf4j.version>2.0.9</slf4j.version>
+    <pi4j.version>2.3.0</pi4j.version>
+    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    <maven-compiler-plugin.source>11</maven-compiler-plugin.source>
+    <maven-compiler-plugin.target>11</maven-compiler-plugin.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+	<!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-core -->
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-core</artifactId>
+      <version>${pi4j.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-plugin-raspberrypi -->
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-plugin-raspberrypi</artifactId>
+      <version>${pi4j.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-plugin-linuxfs -->
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-plugin-linuxfs</artifactId>
+      <version>${pi4j.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-plugin-pigpio -->
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-plugin-pigpio</artifactId>
+      <version>${pi4j.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+	  <plugins>
+	    <plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-compiler-plugin</artifactId>
+		    <version>${maven-compiler-plugin.version}</version>
+		    <configuration>
+			    <source>${maven-compiler-plugin.source}</source>
+			    <target>${maven-compiler-plugin.target}</target>
+		    </configuration>
+	    </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>
+                    lcddisplay.Main
+                  </mainClass>
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+	  </plugins>
+    <defaultGoal>install</defaultGoal>
+  </build>
+  
+</project>
