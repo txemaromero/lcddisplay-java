@@ -44,11 +44,13 @@ Before we get into the programming, we need to make sure the I2C module is enabl
 
 Most people know that you can enable the I2C port using raspi-config.
 
-raspi-config [raspi-config 23] also offers a non-interactive mode, where you can drive it’s functionality using command line parameters to it.
+raspi-config [raspi-config 23] also offers a non-interactive mode, where you can drive it's functionality using command line parameters to it.
 
 Here is how to read the current state of the I2C port:
 
-`raspi-config nonint get_i2c`
+```
+raspi-config nonint get_i2c
+```
 
 This command will return:
 
@@ -57,13 +59,17 @@ This command will return:
 
 Here is how to enable the I2C port:
 
-`sudo raspi-config nonint do_i2c 0`
+```
+sudo raspi-config nonint do_i2c 0
+```
 
 Again, note that 0 means true / on here.
 
 Here is how to disable the I2C port:
 
-`sudo raspi-config nonint do_i2c 1`
+```
+sudo raspi-config nonint do_i2c 1
+```
 
 1 means "false" or off for this purpose.
 
@@ -73,11 +79,15 @@ Reboot the Raspberry Pi to activate the settings.
 
 Now we need to install a program called I2C-tools, which will tell us the I2C address of the LCD when it is connected to the Raspberry Pi. So, at the command prompt, enter:
 
-`sudo apt-get install i2c-tools`
+```
+sudo apt-get install i2c-tools
+```
 
 Now reboot the Raspberry Pi and log in again. With your LCD connected, enter:
 
-`i2cdetect -y 1`
+```
+i2cdetect -y 1
+```
 
 at the command prompt. This will show you a table of addresses for each I2C device connected to your Raspberry Pi.
 
@@ -87,7 +97,7 @@ at the command prompt. This will show you a table of addresses for each I2C devi
 
 We will be using Java [W3Schools 23] to program the LCD.
 
-I have provided the UML class diagram.
+We have provided the UML class diagram.
 
 ![UML class diagram](images/uml_class_diagram.png)
 
@@ -101,23 +111,29 @@ Download the files as a zip using the green button, or clone the repository to y
 
 Uncompress .zip file and type:
 
-`cd <uncompressed folder>`
+```
+cd <uncompressed folder>
+```
 
-In:
+In:  
 [lcddisplay-java/src/main/java/lcddisplay/LcdDisplay.java](src/main/java/lcddisplay/LcdDisplay.java) file, there are a couple of things you may need to change in the code, depending on your set up. On line 61 there is a function that defines the port for the I2C bus (`DEFAULT_BUS = 0x1`). Older Raspberry Pi's used port 0, but newer models use port 1. So, depending on which Raspberry Pi model you have, you might need to change this from 1 to 0.
 Next, put the I2C address of your LCD in line 62 of the library code. For example, our I2C address is 27, so we will change line 62 to `DEFAULT_DEVICE = 0x27`.
 
-In:
+In:  
 [lcddisplay-java/src/main/java/lcddisplay/Main.java](src/main/java/lcddisplay/Main.java) file, put the number of ROWS and COLUMNS of the device in line 37.
 
-In:
+In:  
 lcddisplay-java/ folder
 
 At the command prompt, enter:
 
-`apt-get install maven`
+```
+apt-get install maven
+```
 
-`mvn clean package`
+```
+mvn clean package
+```
 
 ![Build success](images/buildsuccess.png)
 
@@ -125,7 +141,9 @@ At the command prompt, enter:
 
 Execute .jar Java file. At the command prompt, enter:
 
-`java -jar target/lcddisplay-0.0.1-SNAPSHOT-jar-with-dependencies.jar`
+```
+java -jar target/lcddisplay-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+```
 
 ![LCD display Java](images/lcddisplay-java.png)
 
